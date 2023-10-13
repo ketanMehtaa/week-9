@@ -1,1 +1,1 @@
-ssh-keyscan ec2-3-87-158-191.compute-1.amazonaws.com >> known_hosts
+ssh-keyscan ec2-35-172-213-23.compute-1.amazonaws.com >> known_hosts
