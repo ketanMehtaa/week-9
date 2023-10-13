@@ -1,20 +1,19 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const adminRouter = require("./routes/admin");
-const userRouter = require("./routes/user");
+const http = require('http');
 
-const app = express();
+const PORT = process.env.PORT || 3000; // Set the port you want to listen on
 
-app.use(cors());
-app.use(express.json());
+const server = http.createServer((req, res) => {
+  if (req.method === 'GET' && req.url === '/') {
+    // Respond with a simple message when accessing the root path
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Application is deployed and running!\n');
+  } else {
+    // Respond with a 404 Not Found for other paths
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not Found\n');
+  }
+});
 
-app.use("/admin", adminRouter)
-app.use("/user", userRouter)
-
-
-// Connect to MongoDB
-// DONT MISUSE THIS THANKYOU!!
-// mongoose.connect('mongodb://localhost:27017/courses', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
-
-app.listen(3000, () => console.log('Server running on port 3000'));
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
